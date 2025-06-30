@@ -28,16 +28,16 @@
     </scm>
     <properties>
         <java.version>21</java.version>
-
-        <!-- <editor-fold desc="JJWT properties"> -->
-        <jjwt.version>0.12.5</jjwt.version>
-        <!-- </editor-fold> -->
     </properties>
     <dependencies>
         <!-- <editor-fold desc="SPRING BOOT STARTER"> -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -75,17 +75,14 @@
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt-api</artifactId>
-            <version>${jjwt.version}</version>
         </dependency>
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt-impl</artifactId>
-            <version>${jjwt.version}</version>
         </dependency>
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt-jackson</artifactId>
-            <version>${jjwt.version}</version>
         </dependency>
         <!-- </editor-fold> -->
 
@@ -101,6 +98,13 @@
         </dependency>
         <!-- </editor-fold> -->
 
+        <!-- <editor-fold desc="SWAGGER"> -->
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+        </dependency>
+        <!-- </editor-fold> -->
+
         <!-- <editor-fold desc="OTHER"> -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -113,10 +117,6 @@
 
     <build>
         <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>

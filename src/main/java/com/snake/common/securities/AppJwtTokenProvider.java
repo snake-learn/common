@@ -24,16 +24,13 @@ import java.util.Base64;
 import java.util.Date;
 
 @Slf4j
-@Component
 @Getter
 @Setter
+@Component
 @RequiredArgsConstructor
 public class AppJwtTokenProvider {
 
     private final ObjectMapper objectMapper;
-
-    @Value("${security.exponent}")
-    private String exponent;
 
     @Value("${security.token-time-out-ms:86400000}")
     private Long tokenTimeOutMs;
@@ -103,7 +100,7 @@ public class AppJwtTokenProvider {
     private PublicKey genPublicKey() {
         try {
             X509EncodedKeySpec publicKeySpec = new X509EncodedKeySpec(
-                    Base64.getDecoder().decode(KeyUtils.getKey("keys/publickey.crt", false))
+                    Base64.getDecoder().decode(KeyUtils.getKey("keys/public_key.crt", false))
             );
             final String rsa = "RSA";
             return KeyFactory.getInstance(rsa).generatePublic(publicKeySpec);
@@ -116,7 +113,7 @@ public class AppJwtTokenProvider {
     private PrivateKey genPrivateKey() {
         try {
             val spec = new PKCS8EncodedKeySpec(
-                    Base64.getDecoder().decode(KeyUtils.getKey("keys/pkcs8.keyt", false))
+                    Base64.getDecoder().decode(KeyUtils.getKey("keys/private_key.crt", false))
             );
             val factory = KeyFactory.getInstance("RSA");
             return factory.generatePrivate(spec);
