@@ -1,6 +1,7 @@
 package com.snake.common.dtos.wrappers;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.snake.common.errors.AppError;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.FieldNameConstants;
@@ -28,4 +29,11 @@ public class AppResponse<T> {
         implementation = AppMetadata.class
     )
     AppMetadata metadata;
+
+    public static <T> AppResponse<T> ok(T data) {
+        return AppResponse.<T>builder()
+                .data(data)
+                .metadata(AppMetadata.ok())
+                .build();
+    }
 }

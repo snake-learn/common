@@ -22,6 +22,7 @@ import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 import java.util.Base64;
 import java.util.Date;
+import java.util.function.Supplier;
 
 @Slf4j
 @Getter
@@ -123,12 +124,16 @@ public class AppJwtTokenProvider {
         }
     }
 
+    public String genToken(Supplier<AppUserDetails> supplier) {
+        return this.genToken(supplier.get());
+    }
+
     public String genToken(AppUserDetails userDetails) {
         return Jwts.builder()
                 .subject(userDetails.getSub())
                 .claim(AppUserDetails.Fields.username, userDetails.getUsername())
-                .issuedAt(new Date())
-                .expiration(new Date((new Date()).getTime() + tokenTimeOutMs)) // ms
+                .issuedAt(new Date(userDetails.getIat()))
+                .expiration(new Date(userDetails.getExp()))
                 .claim(AppUserDetails.Fields.roles, userDetails.getRoles())
                 .claim(AppUserDetails.Fields.permissions, userDetails.getPermissions())
                 .signWith(genPrivateKey())

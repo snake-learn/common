@@ -30,4 +30,42 @@ public class AppMetadata {
     @JsonUnwrapped
     @Schema(description = "Thông tin phân trang (nếu có). Các trường sẽ được gộp vào response.")
     AppPage appPage;
+
+    public static AppMetadata ok() {
+        return AppMetadata.builder()
+                .appError(AppError.ok())
+                .build();
+    }
+
+    public static AppMetadata ok(AppError appError) {
+        return AppMetadata.builder()
+                .appError(appError)
+                .build();
+    }
+
+    public static AppMetadata ok(AppPage appPage) {
+        return AppMetadata.builder()
+                .appError(AppError.ok())
+                .appPage(appPage)
+                .build();
+    }
+
+    public static AppMetadata ok(AppError appError, AppPage appPage) {
+        return AppMetadata.builder()
+                .appError(appError)
+                .appPage(appPage)
+                .build();
+    }
+
+    public static AppMetadata badRequest() {
+        return AppMetadata.builder()
+                .appError(AppError.badRequest())
+                .build();
+    }
+
+    public static AppMetadata badRequest(AppError appError) {
+        return AppMetadata.builder()
+                .appError(appError)
+                .build();
+    }
 }

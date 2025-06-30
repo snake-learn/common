@@ -6,6 +6,7 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.FieldNameConstants;
 import lombok.experimental.SuperBuilder;
+import org.springframework.http.HttpStatus;
 
 import java.util.List;
 
@@ -40,4 +41,18 @@ public class AppError {
 
     @Schema(description = "Nguyên nhân gốc của lỗi (nếu có)")
     String rootCause;
+
+    public static AppError ok() {
+        return AppError.builder()
+                .statusCode(HttpStatus.OK.value())
+                .key("success.200")
+                .build();
+    }
+
+    public static AppError badRequest() {
+        return AppError.builder()
+                .statusCode(HttpStatus.BAD_REQUEST.value())
+                .key("errors.400.bad_request")
+                .build();
+    }
 }

@@ -21,6 +21,14 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.Instant;
 
+/**
+ * Lớp cơ sở trừu tượng cung cấp các thuộc tính kiểm toán chung cho các thực thể.
+ * <p>
+ * Lớp này bao gồm thông tin về người tạo, thời gian tạo, người cập nhật,
+ * và thời gian cập nhật của thực thể. Nó được sử dụng làm lớp cha cho các thực thể khác.
+ * <p>
+ * Các thuộc tính được tự động cập nhật bởi Spring Data JPA thông qua {@link AuditingEntityListener}.
+ */
 @Getter
 @Setter
 @SuperBuilder(toBuilder = true)
@@ -31,23 +39,43 @@ import java.time.Instant;
 @EntityListeners(AuditingEntityListener.class)
 public abstract class AuditEntity {
 
-    @Column(name = "created_by", updatable = false)
+    /**
+     * ID của người tạo thực thể.
+     * <p>
+     * Thuộc tính này được tự động điền bởi Spring Data JPA.
+     */
     @CreatedBy
+    @Column(name = "created_by", updatable = false)
     private Long createdBy;
 
-    @Column(name = "created_time", nullable = false, updatable = false)
-    @CreationTimestamp
+    /**
+     * Thời gian tạo thực thể.
+     * <p>
+     * Thuộc tính này được tự động điền bởi Hibernate khi thực thể được tạo.
+     */
     @CreatedDate
+    @CreationTimestamp
+    @Column(name = "created_time", nullable = false, updatable = false)
     private Instant createdTime;
 
-    @Column(name = "updated_by")
+    /**
+     * ID của người cập nhật thực thể.
+     * <p>
+     * Thuộc tính này được tự động điền bởi Spring Data JPA khi thực thể được cập nhật.
+     */
     @LastModifiedBy
+    @Column(name = "updated_by")
     private Long updatedBy;
 
-    @Column(name = "updated_time")
+    /**
+     * Thời gian cập nhật thực thể.
+     * <p>
+     * Thuộc tính này được tự động cập nhật bởi Hibernate khi thực thể được sửa đổi.
+     */
     @Version
     @UpdateTimestamp
     @LastModifiedDate
     @ColumnDefault("current_timestamp()")
+    @Column(name = "updated_time")
     private Instant updatedTime;
 }
