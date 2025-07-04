@@ -10,23 +10,23 @@ import org.springframework.http.HttpStatus;
 
 /**
  * <p>
- * Ngoại lệ nghiệp vụ dùng để xử lý các lỗi liên quan đến logic kinh doanh của ứng dụng.
+ * Ngoại lệ dùng để biểu thị các lỗi kiểm tra hợp lệ dữ liệu (validation) trong hệ thống.
  * </p>
  * <ul>
+ *   <li>Thường được sử dụng khi dữ liệu đầu vào không hợp lệ hoặc không đáp ứng các ràng buộc nghiệp vụ.</li>
  *   <li>Lưu trữ mã lỗi, thông báo, tham số mẫu và mã trạng thái HTTP liên quan.</li>
  *   <li>Hỗ trợ đa ngôn ngữ thông qua {@link I18nProvider}.</li>
- *   <li>Thường được sử dụng để trả về lỗi có kiểm soát cho phía client.</li>
  * </ul>
  */
 @Getter
 @Setter
 @SuppressWarnings("unused")
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-public class BusinessException extends BaseException {
+public class ValidationException extends BaseException {
     /**
      * Tên class dùng làm tag cho log.
      */
-    private static final String TAG = BusinessException.class.getSimpleName();
+    private static final String TAG = ValidationException.class.getSimpleName();
 
     /**
      * Mã trạng thái HTTP trả về cho client.
@@ -53,7 +53,7 @@ public class BusinessException extends BaseException {
      *
      * @param info Thông tin lỗi nghiệp vụ
      */
-    public BusinessException(@NonNull AppErrorInfo info) {
+    public ValidationException(@NonNull AppErrorInfo info) {
         super(TAG);
         this.statusCode = info.getStatusCode();
         this.key = info.getKey();
@@ -67,7 +67,7 @@ public class BusinessException extends BaseException {
      * @param info Thông tin lỗi nghiệp vụ
      * @param templateArgs Tham số truyền vào mẫu thông báo
      */
-    public BusinessException(@NonNull AppErrorInfo info, Object... templateArgs) {
+    public ValidationException(@NonNull AppErrorInfo info, Object... templateArgs) {
         super(TAG);
         this.statusCode = info.getStatusCode();
         this.key = info.getKey();
@@ -81,7 +81,7 @@ public class BusinessException extends BaseException {
      * @param info Thông tin lỗi nghiệp vụ
      * @param cause Nguyên nhân gốc của ngoại lệ
      */
-    public BusinessException(@NonNull AppErrorInfo info, Throwable cause) {
+    public ValidationException(@NonNull AppErrorInfo info, Throwable cause) {
         super(TAG, cause);
         this.statusCode = info.getStatusCode();
         this.key = info.getKey();
@@ -96,7 +96,7 @@ public class BusinessException extends BaseException {
      * @param cause Nguyên nhân gốc của ngoại lệ
      * @param templateArgs Tham số truyền vào mẫu thông báo
      */
-    public BusinessException(@NonNull AppErrorInfo info, Throwable cause, Object... templateArgs) {
+    public ValidationException(@NonNull AppErrorInfo info, Throwable cause, Object... templateArgs) {
         super(TAG, cause);
         this.statusCode = info.getStatusCode();
         this.key = info.getKey();
@@ -104,3 +104,4 @@ public class BusinessException extends BaseException {
         this.templateArgs = templateArgs;
     }
 }
+

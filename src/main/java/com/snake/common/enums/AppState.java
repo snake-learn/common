@@ -28,13 +28,33 @@ import java.util.stream.Stream;
 @Getter
 @AllArgsConstructor
 public enum AppState {
+    /**
+     * Trạng thái không hoạt động.
+     */
     INACTIVE(0, "APP_STATE.INACTIVE"),
+    /**
+     * Trạng thái đang hoạt động.
+     */
     ACTIVE(1, "APP_STATE.ACTIVE"),
     ;
 
+    /**
+     * Giá trị số nguyên đại diện cho trạng thái.
+     */
     private final int key;
+
+    /**
+     * Tên mã dùng cho đa ngôn ngữ.
+     */
     private final String codeName;
 
+    /**
+     * Chuyển đổi một giá trị số nguyên thành {@link AppState} tương ứng.
+     *
+     * @param data Giá trị số nguyên cần chuyển đổi
+     * @return Trạng thái {@link AppState} tương ứng
+     * @throws IllegalArgumentException nếu không có trạng thái phù hợp
+     */
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
     public static AppState of(int data) {
         return Stream.of(values())
@@ -49,6 +69,11 @@ public enum AppState {
                 );
     }
 
+    /**
+     * Lấy giá trị số nguyên đại diện cho trạng thái hiện tại.
+     *
+     * @return Giá trị số nguyên của trạng thái
+     */
     @JsonValue
     public int getKey() {
         return this.key;

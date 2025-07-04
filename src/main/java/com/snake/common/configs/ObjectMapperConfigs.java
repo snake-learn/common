@@ -12,10 +12,19 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 
+/**
+ * Cấu hình các ObjectMapper sử dụng trong toàn bộ ứng dụng.
+ * Thiết lập các tuỳ chọn mặc định cho việc tuần tự hóa (Serializable) và giải tuần tự hóa (UnSerializable) của JSON.
+ */
 @Slf4j
 @Configuration
 public class ObjectMapperConfigs {
 
+    /**
+     * Khởi tạo bean ObjectMapper mặc định, ưu tiên cao
+     *
+     * @return ObjectMapper đã được cấu hình sẵn.
+     */
     @Bean
     @Primary
     ObjectMapper objectMapper() {

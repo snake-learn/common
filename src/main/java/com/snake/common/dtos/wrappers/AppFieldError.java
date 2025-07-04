@@ -1,4 +1,4 @@
-package com.snake.common.errors;
+package com.snake.common.dtos.wrappers;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -16,7 +16,7 @@ import lombok.experimental.SuperBuilder;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Schema(description = "Đối tượng mô tả thông tin thuộc tính lỗi trả về từ API")
-public class FieldError {
+public class AppFieldError {
 
     @Schema(description = "Khóa lỗi dùng để xác định loại lỗi", example = "NAME_IS_NULL")
     String key;

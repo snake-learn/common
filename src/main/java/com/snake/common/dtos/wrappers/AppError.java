@@ -1,4 +1,4 @@
-package com.snake.common.errors;
+package com.snake.common.dtos.wrappers;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -37,7 +37,7 @@ public class AppError {
             description = "Danh sách các lỗi thuộc tính (nếu có)",
             example = "[{\"key\":\"NAME_IS_NULL\",\"message\":\"Name cannot be null\",\"templateArgs\":[\"name\"]}]"
     )
-    List<FieldError> fieldErrors;
+    List<AppFieldError> fieldErrors;
 
     @Schema(description = "Nguyên nhân gốc của lỗi (nếu có)")
     String rootCause;
@@ -46,13 +46,6 @@ public class AppError {
         return AppError.builder()
                 .statusCode(HttpStatus.OK.value())
                 .key("success.200")
-                .build();
-    }
-
-    public static AppError badRequest() {
-        return AppError.builder()
-                .statusCode(HttpStatus.BAD_REQUEST.value())
-                .key("errors.400.bad_request")
                 .build();
     }
 }

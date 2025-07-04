@@ -2,12 +2,13 @@ package com.snake.common.dtos.wrappers;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
-import com.snake.common.errors.AppError;
+import com.snake.common.utils.RequestUtils;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.FieldNameConstants;
 import lombok.experimental.SuperBuilder;
+import org.springframework.context.i18n.LocaleContextHolder;
 
 @Getter
 @Setter
@@ -31,15 +32,25 @@ public class AppMetadata {
     @Schema(description = "Thông tin phân trang (nếu có). Các trường sẽ được gộp vào response.")
     AppPage appPage;
 
+    @Schema(description = "Ngôn ngữ của response, ví dụ: vi, en, ...")
+    String locale;
+
+    @Schema(description = "Đường dẫn của API được gọi, ví dụ: /api/v1/users")
+    String path;
+
     public static AppMetadata ok() {
         return AppMetadata.builder()
                 .appError(AppError.ok())
+                .locale(LocaleContextHolder.getLocale().getLanguage())
+                .path(RequestUtils.getPath())
                 .build();
     }
 
     public static AppMetadata ok(AppError appError) {
         return AppMetadata.builder()
                 .appError(appError)
+                .locale(LocaleContextHolder.getLocale().getLanguage())
+                .path(RequestUtils.getPath())
                 .build();
     }
 
@@ -47,6 +58,8 @@ public class AppMetadata {
         return AppMetadata.builder()
                 .appError(AppError.ok())
                 .appPage(appPage)
+                .locale(LocaleContextHolder.getLocale().getLanguage())
+                .path(RequestUtils.getPath())
                 .build();
     }
 
@@ -54,18 +67,16 @@ public class AppMetadata {
         return AppMetadata.builder()
                 .appError(appError)
                 .appPage(appPage)
+                .locale(LocaleContextHolder.getLocale().getLanguage())
+                .path(RequestUtils.getPath())
                 .build();
     }
 
-    public static AppMetadata badRequest() {
-        return AppMetadata.builder()
-                .appError(AppError.badRequest())
-                .build();
-    }
-
-    public static AppMetadata badRequest(AppError appError) {
+    public static AppMetadata error(AppError appError) {
         return AppMetadata.builder()
                 .appError(appError)
+                .locale(LocaleContextHolder.getLocale().getLanguage())
+                .path(RequestUtils.getPath())
                 .build();
     }
 }
